@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: interpret
+    runtime: docker
+    plan: starter
+    branch: main
+    autoDeployTrigger: commit
+    renderSubdomainPolicy: enabled
+    healthCheckPath: /health
+    envVars:
+      - key: HUA_TFSU_ASR_PROVIDER
+        value: demo
+      - key: HUA_TFSU_WHISPER_MODEL
+        value: small
+      - key: HUA_TFSU_WHISPER_DEVICE
+        value: cpu
+      - key: HUA_TFSU_WHISPER_COMPUTE_TYPE
+        value: int8
+      - key: HUA_TFSU_CHUNK_SECONDS
+        value: "2.4"
+      - key: HUA_TFSU_MIN_AUDIO_SECONDS
+        value: "0.8"
+      - key: HUA_TFSU_OPENAI_BASE_URL
+        value: https://api.openai.com/v1
+      - key: HUA_TFSU_OPENAI_TRANSLATION_MODEL
+        value: gpt-4o-mini
+      - key: HUA_TFSU_OPENAI_API_KEY
+        sync: false
