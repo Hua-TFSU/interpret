@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hua-TFSU 实时同传字幕</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="rail">
+        <div class="brand">
+          <span class="brand-mark">HT</span>
+          <div>
+            <h1>Hua-TFSU</h1>
+            <p>Realtime Interpreter</p>
+          </div>
+        </div>
+        <nav class="tabs" aria-label="工作区">
+          <button class="tab active" data-view="captions">实时字幕</button>
+          <button class="tab" data-view="terms">术语库</button>
+          <button class="tab" data-view="corpus">双语语料库</button>
+          <button class="tab" data-view="notes">手写笔记</button>
+        </nav>
+        <div class="rail-status">
+          <span>状态</span>
+          <strong id="status">未连接</strong>
+        </div>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Live bilingual caption console</p>
+            <h2 id="viewTitle">实时字幕</h2>
+          </div>
+          <div class="actions">
+            <select id="direction" aria-label="翻译方向">
+              <option value="en-zh">英中</option>
+              <option value="zh-en">中英</option>
+            </select>
+            <button id="apiKeyBtn">API Key</button>
+            <button id="exportBtn">导出</button>
+          </div>
+        </header>
+
+        <section id="view-captions" class="view active">
+          <div class="caption-toolbar">
+            <button id="startBtn" class="primary">开始</button>
+            <button id="stopBtn" disabled>停止</button>
+            <span id="latency">延迟 -</span>
+          </div>
+
+          <section class="meter-band" aria-label="音频状态">
+            <canvas id="meter" width="1200" height="120"></canvas>
+          </section>
+
+          <section class="caption-grid">
+            <article class="panel caption-panel">
+              <div class="panel-head">
+                <span>听写</span>
+                <strong id="sourceLabel">English</strong>
+              </div>
+              <div id="transcript" class="caption-text"></div>
+            </article>
+            <article class="panel caption-panel accent">
+              <div class="panel-head">
+                <span>翻译</span>
+                <strong id="targetLabel">中文</strong>
+              </div>
+              <div id="translation" class="caption-text"></div>
+            </article>
+          </section>
+
+          <section class="panel history-panel">
+            <div class="panel-head">
+              <span>字幕流</span>
+              <button id="sendLastToCorpusBtn">存入语料库</button>
+            </div>
+            <ol id="history" class="history-list"></ol>
+          </section>
+        </section>
+
+        <section id="view-terms" class="view">
+          <section class="panel">
+            <div class="panel-head">
+              <span>术语添加</span>
+              <strong id="termsCount">0 条</strong>
+            </div>
+            <div class="form-grid">
+              <input id="termSource" type="text" placeholder="原文术语，例如 Transformer" />
+              <input id="termTarget" type="text" placeholder="指定译法，例如 Transformer 架构" />
+              <button id="addTermBtn" class="primary">添加术语</button>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <span>AI 抓取术语</span>
+              <button id="extractTermsBtn">一键抓取</button>
+            </div>
+            <textarea id="termExtractText" rows="6" placeholder="粘贴课程材料、字幕记录或语料文本，点击一键抓取术语。"></textarea>
+            <div id="termsList" class="terms-list"></div>
+          </section>
+        </section>
+
+        <section id="view-corpus" class="view">
+          <section class="panel">
+            <div class="panel-head">
+              <span>双语语料添加</span>
+              <strong id="corpusCount">0 条</strong>
+            </div>
+            <div class="corpus-form">
+              <textarea id="corpusSource" rows="4" placeholder="原文"></textarea>
+              <textarea id="corpusTarget" rows="4" placeholder="译文"></textarea>
+              <button id="addCorpusBtn" class="primary">添加语料</button>
+            </div>
+          </section>
+          <section class="panel">
+            <div class="panel-head">
+              <span>语料库</span>
+              <input id="corpusSearch" type="search" placeholder="搜索语料" />
+            </div>
+            <div id="corpusList" class="corpus-list"></div>
+          </section>
+        </section>
+
+        <section id="view-notes" class="view">
+          <section class="panel notes-panel">
+            <div class="panel-head">
+              <span>笔记画布</span>
+              <div class="note-tools">
+                <input id="penColor" type="color" value="#38f8ff" aria-label="笔颜色" />
+                <input id="penWidth" type="range" min="1" max="18" value="4" aria-label="笔宽" />
+                <button id="clearNotesBtn">清空</button>
+                <button id="saveNotesBtn">保存</button>
+                <button id="downloadNotesBtn">下载</button>
+              </div>
+            </div>
+            <canvas id="notesCanvas" width="1400" height="760"></canvas>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
