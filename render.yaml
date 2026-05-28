@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: interpret
+    name: hua-tfsu-interpret
     runtime: docker
     plan: starter
     branch: main
